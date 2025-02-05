@@ -1,0 +1,41 @@
+<div class="w-screen h-screen flex justify-center items-center bg-gray-200 dark:bg-gray-800">
+  <div
+    class="w-1/2 h-1/2 min-w-[960px] min-h-[540px] bg-blue-400 dark:bg-blue-500 rounded-lg flex flex-col justify-center items-center text-white dark:text-gray-200">
+    <h1 class="text-4xl">🧩益智拼图🧩</h1>
+    <div class="mt-5 mb-3 flex w-64 justify-between items-center">
+      <span class="text-base w-32 font-bold">棋盘大小</span>
+      <select id="size" [ngModel]="size()" name="size" (ngModelChange)="changeSize($event)"
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+        <option value="3" selected>3*3</option>
+        <option value="4">4*4</option>
+        <option value="5">5*5</option>
+      </select>
+    </div>
+    <div class="my-3 flex w-64 justify-between items-center">
+      <span class="text-base w-32 font-bold">难度</span>
+      <div class="flex items-center">
+        <svg class="w-8 h-8  ms-1 cursor-pointer" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+          [ngClass]="{'text-yellow-400': difficulty() >=1, 'text-gray-200': difficulty() < 1 }"
+          (click)="changeDifficulty(1)" fill="currentColor" viewBox="0 0 22 20">
+          <path
+            d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
+        </svg>
+        <svg class="w-8 h-8  ms-1  cursor-pointer" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+          [ngClass]="{'text-yellow-400': difficulty() >=2, 'text-gray-200': difficulty() < 2 }"
+          (click)="changeDifficulty(2)" fill="currentColor" viewBox="0 0 22 20">
+          <path
+            d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
+        </svg>
+        <svg class="w-8 h-8  ms-1 cursor-pointer" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+          [ngClass]="{'text-yellow-400': difficulty() >=3, 'text-gray-200': difficulty() < 3 }"
+          (click)="changeDifficulty(3)" fill="currentColor" viewBox="0 0 22 20">
+          <path
+            d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
+        </svg>
+      </div>
+    </div>
+    <button
+      class="my-5 w-64 border border-solid bg-blue-400 hover:bg-blue-500 dark:bg-blue-500 dark:hover:bg-blue-400 border-orange-300 rounded-md h-14"
+      (click)="start()">开始游戏</button>
+  </div>
+</div>

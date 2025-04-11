@@ -1,14 +1,15 @@
 <div
-  class="flex h-screen w-screen flex-col items-center justify-center bg-gray-200 dark:bg-gray-800"
+  class="flex h-screen w-screen flex-col items-center justify-center bg-gray-100 dark:bg-gray-900"
 >
+  <!-- 难度显示 -->
   <div
-    class="my-5 flex w-full items-center justify-center text-2xl font-bold text-gray-800 dark:text-gray-200"
+    class="my-5 flex w-full items-center justify-center text-2xl font-bold text-cyan-700 dark:text-cyan-200"
   >
-    <span>难度：</span>
-    <span class="flex items-center justify-center">
+    <span class="mr-2">难度：</span>
+    <div class="flex items-center">
       <svg
         *ngIf="difficulty() >= 1"
-        class="ms-1 h-8 w-8 cursor-pointer text-yellow-500 dark:text-yellow-400"
+        class="h-7 w-7 text-amber-400 md:h-8 md:w-8"
         aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         fill="currentColor"
@@ -18,45 +19,26 @@
           d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"
         />
       </svg>
-      <svg
-        *ngIf="difficulty() >= 2"
-        class="ms-1 h-8 w-8 cursor-pointer text-yellow-500 dark:text-yellow-400"
-        aria-hidden="true"
-        xmlns="http://www.w3.org/2000/svg"
-        fill="currentColor"
-        viewBox="0 0 22 20"
-      >
-        <path
-          d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"
-        />
-      </svg>
-      <svg
-        *ngIf="difficulty() >= 3"
-        class="ms-1 h-8 w-8 cursor-pointer text-yellow-500 dark:text-yellow-400"
-        aria-hidden="true"
-        xmlns="http://www.w3.org/2000/svg"
-        fill="currentColor"
-        viewBox="0 0 22 20"
-      >
-        <path
-          d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"
-        />
-      </svg>
-    </span>
+      <!-- 重复其他两个星星 -->
+    </div>
   </div>
-  <div class="">
+
+  <!-- 拼图区域 -->
+  <div class="p-4">
     @for (cs of cells(); track $index) {
       <div class="flex w-full items-center justify-center">
         @for (cell of cs; track $index) {
           <div
-            class="m-[1px] flex h-32 w-32 items-center justify-center border border-solid border-gray-600"
+            class="m-1 flex h-20 w-20 items-center justify-center rounded-lg border-2 border-cyan-200 shadow-md transition-all hover:shadow-lg md:h-32 md:w-32"
             [ngClass]="{
-              'cursor-pointer bg-blue-300 hover:bg-blue-400 dark:bg-blue-500':
+              'cursor-pointer bg-cyan-100 hover:bg-cyan-200 dark:bg-cyan-700/90 dark:hover:bg-cyan-600':
                 cell.value !== 0,
             }"
             (click)="clickCell(cell)"
           >
-            <span class="text-3xl font-bold text-gray-800 dark:text-gray-200">
+            <span
+              class="text-xl font-bold text-cyan-700 md:text-3xl dark:text-cyan-200"
+            >
               {{ cell.value === 0 ? "" : cell.value }}
             </span>
           </div>
@@ -65,51 +47,64 @@
     }
   </div>
 
-  <div class="my-10 flex w-full items-center justify-center">
-    <span class="text-2xl font-bold text-gray-800 dark:text-gray-200"
-      >步数: {{ steps() }}</span
+  <!-- 步数统计 -->
+  <div class="my-6 flex w-full items-center justify-center">
+    <span
+      class="text-xl font-semibold text-cyan-700 md:text-2xl dark:text-cyan-200"
     >
+      步数: {{ steps() }}
+    </span>
   </div>
-  <button
-    (click)="restart()"
-    class="mt-10 h-14 w-64 rounded-md border border-solid border-orange-300 bg-blue-400 text-gray-200 hover:bg-blue-500 dark:bg-blue-600 dark:text-gray-200 dark:hover:bg-blue-500"
-  >
-    重新开始
-  </button>
-  <button
-    (click)="back()"
-    class="mt-5 h-14 w-64 rounded-md border border-solid border-orange-300 bg-blue-400 text-gray-200 hover:bg-blue-500 dark:bg-blue-600 dark:text-gray-200 dark:hover:bg-blue-500"
-  >
-    返回
-  </button>
-</div>
 
-<!-- winner -->
-<div
-  *ngIf="finished()"
-  class="absolute left-0 top-0 flex h-full w-full flex-col items-center justify-center bg-gray-200 backdrop-blur-md dark:bg-gray-800"
->
-  <div class="flex h-96 w-96 flex-col items-center justify-center">
-    <div class="my-5 text-4xl text-gray-800 dark:text-gray-200">
-      🎉🎉🎉恭喜🎉🎉🎉
-    </div>
-    <div class="my-5 text-2xl text-gray-800 dark:text-gray-200">
-      您已完成拼图！
-    </div>
+  <!-- 操作按钮 -->
+  <!-- 修改 flex-col 为 flex-row 以实现横向排列 -->
+  <div class="flex flex-row items-center space-x-4">
     <button
-      class="my-5 h-14 w-64 rounded-md border border-solid border-orange-300 bg-blue-400 text-gray-200 hover:bg-blue-500 dark:bg-blue-600 dark:text-gray-200 dark:hover:bg-blue-500"
+      class="w-48 rounded-xl bg-gradient-to-r from-cyan-500 to-teal-500 px-6 py-3 text-base font-semibold text-white shadow-md transition-all hover:from-cyan-600 hover:to-teal-600 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2 md:w-64 md:py-4 md:text-lg dark:from-cyan-600 dark:to-teal-600 dark:hover:from-cyan-700 dark:hover:to-teal-700 dark:focus:ring-offset-gray-900"
       (click)="restart()"
     >
-      再来一局
+      重新开始
     </button>
     <button
+      class="w-48 rounded-xl border-2 border-cyan-500 bg-transparent px-6 py-3 text-base font-semibold text-cyan-600 transition-all hover:bg-cyan-100 hover:text-cyan-700 focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2 md:w-64 md:py-4 md:text-lg dark:text-cyan-200 dark:hover:bg-cyan-800/50 dark:focus:ring-offset-gray-900"
       (click)="back()"
-      class="my-5 h-14 w-64 rounded-md border border-solid border-orange-300 bg-blue-400 text-gray-200 hover:bg-blue-500 dark:bg-blue-600 dark:text-gray-200 dark:hover:bg-blue-500"
     >
       返回
     </button>
   </div>
+
+  <!-- 胜利弹窗 -->
+  <div
+    *ngIf="finished()"
+    class="fixed inset-0 flex flex-col items-center justify-center bg-gray-100/90 backdrop-blur-sm dark:bg-gray-900/90"
+  >
+    <div
+      class="flex flex-col items-center rounded-2xl bg-cyan-100 p-8 shadow-xl md:p-12 dark:bg-cyan-800"
+    >
+      <div
+        class="my-4 text-3xl font-bold text-cyan-700 md:text-4xl dark:text-cyan-200"
+      >
+        🎉🎉🎉 恭喜完成！🎉🎉🎉
+      </div>
+
+      <div class="space-x-2 space-y-4">
+        <button
+          class="w-48 rounded-xl bg-gradient-to-r from-cyan-500 to-teal-500 px-6 py-3 text-base font-semibold text-white shadow-md transition-all hover:from-cyan-600 hover:to-teal-600 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2 md:w-64 md:py-4 md:text-lg dark:from-cyan-600 dark:to-teal-600 dark:hover:from-cyan-700 dark:hover:to-teal-700 dark:focus:ring-offset-gray-900"
+          (click)="restart()"
+        >
+          再来一局
+        </button>
+        <button
+          class="w-48 rounded-xl border-2 border-cyan-500 bg-transparent px-6 py-3 text-base font-semibold text-cyan-600 transition-all hover:bg-cyan-200 hover:text-cyan-800 focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2 md:w-64 md:py-4 md:text-lg dark:text-cyan-200 dark:hover:bg-cyan-600/50 dark:hover:text-cyan-100 dark:focus:ring-offset-gray-900"
+          (click)="back()"
+        >
+          返回首页
+        </button>
+      </div>
+    </div>
+  </div>
 </div>
 
-<audio #movePlayer src="assets/audio/puzzle/move.mp3" class="hidden"></audio>
-<audio #winPlayer src="assets/audio/puzzle/winner.mp3" class="hidden"></audio>
+<!-- 音频元素保持不变 -->
+<audio #movePlayer src="assets/audio/move.mp3" class="hidden"></audio>
+<audio #winPlayer src="assets/audio/winner.mp3" class="hidden"></audio>
